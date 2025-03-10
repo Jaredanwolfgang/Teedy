@@ -737,6 +737,8 @@ public class DocumentResource extends BaseResource {
         documentCreatedAsyncEvent.setDocumentId(document.getId());
         ThreadLocalContext.get().addAsyncEvent(documentCreatedAsyncEvent);
 
+        // Save the document locally
+
         JsonObjectBuilder response = Json.createObjectBuilder()
                 .add("id", document.getId());
         return Response.ok().entity(response.build()).build();
