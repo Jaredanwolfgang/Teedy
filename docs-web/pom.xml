@@ -25,7 +25,13 @@
       <groupId>com.sismics.docs</groupId>
       <artifactId>docs-web-common</artifactId>
     </dependency>
-    
+
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>42.2.23</version> <!-- Use the latest version available -->
+    </dependency>
+
     <!-- Dependencies to Jersey -->
     <dependency>
       <groupId>org.glassfish.jersey.containers</groupId>
