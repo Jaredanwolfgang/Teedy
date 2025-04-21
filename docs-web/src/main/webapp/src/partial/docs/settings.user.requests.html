@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title" translate="settings.user.registration_requests"></h3>
+      </div>
+      <div class="card-body">
+        <p ng-if="requests.length === 0" translate="settings.user.no_registration_requests"></p>
+        
+        <div class="table-responsive" ng-if="requests.length > 0">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th translate="settings.user.username"></th>
+                <th translate="settings.user.email"></th>
+                <th translate="settings.user.create_date"></th>
+                <th translate="settings.user.status"></th>
+                <th translate="settings.user.actions"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="request in requests | orderBy: '-create_date'">
+                <td>{{ request.username }}</td>
+                <td>{{ request.email }}</td>
+                <td>{{ request.create_date | date: dateFormat }}</td>
+                <td>
+                  <span class="badge" ng-class="{
+                    'badge-warning': request.status === 'PENDING',
+                    'badge-success': request.status === 'APPROVED',
+                    'badge-danger': request.status === 'REJECTED'
+                  }">
+                    {{ 'settings.user.' + request.status.toLowerCase() | translate }}
+                  </span>
+                  <div ng-if="request.status !== 'PENDING'">
+                    {{ 'settings.user.processed_by' | translate }} <strong>{{ request.handled_by_username }}</strong> 
+                    {{ 'settings.user.on' | translate }} {{ request.handling_date | date: dateFormat }}
+                  </div>
+                </td>
+                <td>
+                  <div class="btn-group" ng-if="request.status === 'PENDING'">
+                    <button type="button" class="btn btn-success btn-sm" ng-click="processRequest(request.id, 'APPROVED')">
+                      <span class="fas fa-check"></span> {{ 'settings.user.approve' | translate }}
+                    </button>
+                    <button type="button" class="btn btn-danger btn-sm" ng-click="processRequest(request.id, 'REJECTED')">
+                      <span class="fas fa-times"></span> {{ 'settings.user.reject' | translate }}
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
