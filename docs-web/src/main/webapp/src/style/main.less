@@ -751,3 +751,39 @@ input[readonly].share-link {
   padding-left: 0;
   padding-right: 0;
 }
+
+// Chat styles
+.messages-container {
+  max-height: 400px;
+  overflow-y: auto;
+  margin-bottom: 15px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+}
+
+.message {
+  margin-bottom: 10px;
+}
+
+.message-bubble {
+  display: inline-block;
+  max-width: 80%;
+  padding: 8px 12px;
+  border-radius: 12px;
+  word-wrap: break-word;
+}
+
+.message-mine {
+  background-color: #dcf8c6;
+  border-bottom-right-radius: 2px;
+}
+
+.message-other {
+  background-color: #fff;
+  border-bottom-left-radius: 2px;
+}
+
+.message-creator {
+  color: #2979ff;
+}

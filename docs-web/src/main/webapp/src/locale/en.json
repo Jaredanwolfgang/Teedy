@@ -263,7 +263,10 @@
       "members": "Members",
       "no_members": "No member",
       "related_links": "Related links",
-      "edit_group": "Edit {{ name }} group"
+      "edit_group": "Edit {{ name }} group",
+      "conversation": "Group Conversation",
+      "message_placeholder": "Type a message...",
+      "send": "Send"
     }
   },
   "user": {
@@ -273,7 +276,10 @@
       "percent_used": "{{ percent | number: 0 }}% Used",
       "related_links": "Related links",
       "document_created": "Documents created by {{ username }}",
-      "edit_user": "Edit {{ username }} user"
+      "edit_user": "Edit {{ username }} user",
+      "conversation": "Conversation",
+      "message_placeholder": "Type a message...",
+      "send": "Send"
     }
   },
   "usergroup": {
