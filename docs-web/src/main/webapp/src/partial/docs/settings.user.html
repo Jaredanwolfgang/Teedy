@@ -3,7 +3,16 @@
   <a class="btn btn-primary" href="#/settings/user/add">{{ 'settings.user.add_user' | translate }}</a>
 </h1>
 
-<div class="row">
+<ul class="nav nav-tabs mb-3">
+  <li class="nav-item" ng-class="{ active: $state.current.name == 'settings.user' || $state.current.name.indexOf('settings.user.edit') != -1 || $state.current.name.indexOf('settings.user.add') != -1 }">
+    <a class="nav-link" href="#/settings/user">{{ 'settings.user.users' | translate }}</a>
+  </li>
+  <li class="nav-item" ng-class="{ active: $state.current.name == 'settings.user.requests' }">
+    <a class="nav-link" href="#/settings/user/requests">{{ 'settings.user.registration_requests' | translate }} <span class="badge badge-info" ng-show="$state.current.name == 'settings.user.requests' && pendingRequestCount > 0">{{ pendingRequestCount }}</span></a>
+  </li>
+</ul>
+
+<div class="row" ng-show="$state.current.name == 'settings.user' || $state.current.name.indexOf('settings.user.edit') != -1 || $state.current.name.indexOf('settings.user.add') != -1">
   <div class="col-md-4 well">
     <table class="table table-hover table-users">
       <thead>
@@ -30,3 +39,5 @@
     <div ui-view="user"></div>
   </div>
 </div>
+
+<div ui-view="requests" ng-show="$state.current.name == 'settings.user.requests'"></div>

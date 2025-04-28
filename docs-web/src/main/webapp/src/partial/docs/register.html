@@ -1,0 +1,98 @@
+<style>
+  /* No navbar in register screen */
+  .navbar {
+    display: none;
+  }
+
+  /* Absolute positionned footer on top of the register background */
+  .footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border: none;
+  }
+
+  @media screen and (min-width: 768px) {
+    .footer {
+      width: 50%;
+    }
+  }
+
+  /* Smaller links everywhere on register */
+  a {
+    font-size: 90%;
+    color: #666;
+  }
+</style>
+<div class="row vertical-center">
+  <div class="col-sm-6 col-xs-12 login-box">
+    <div class="row">
+      <div class="col-lg-offset-3 col-lg-6 col-xs-offset-1 col-xs-10">
+        <img src="img/title.png" class="img-responsive" />
+
+        <h3 class="text-center" translate="register.title"></h3>
+
+        <div class="alert alert-danger" ng-if="registerError">
+          {{ registerError }}
+        </div>
+
+        <form name="registerForm">
+          <div class="form-group" ng-class="{ 'has-error': registerForm.username.$invalid && registerForm.$dirty }">
+            <label class="control-label" for="inputUsername">{{ 'register.username' | translate }}</label>
+            <input class="form-control" type="text" id="inputUsername" name="username"
+                   required
+                   ng-pattern="/^[a-zA-Z0-9_@\\.\\-]+$/"
+                   ng-attr-placeholder="{{ 'register.username' | translate }}" ng-model="user.username" />
+            <span class="help-block" ng-show="registerForm.username.$error.pattern && registerForm.$dirty">
+              {{ 'validation.alpha_dash' | translate }}
+            </span>
+          </div>
+
+          <div class="form-group" ng-class="{ 'has-error': registerForm.password.$invalid && registerForm.$dirty }">
+            <label class="control-label" for="inputPassword">{{ 'register.password' | translate }}</label>
+            <input class="form-control" type="password" id="inputPassword" name="password"
+                   required ng-minlength="8" ng-maxlength="50"
+                   ng-attr-placeholder="{{ 'register.password' | translate }}" ng-model="user.password" />
+            <span class="help-block" ng-show="registerForm.password.$error.minlength && registerForm.$dirty">
+              {{ 'validation.minlength' | translate: { length: 8 } }}
+            </span>
+          </div>
+
+          <div class="form-group" ng-class="{ 'has-error': user.password !== user.passwordConfirm && registerForm.$dirty }">
+            <label class="control-label" for="inputPasswordConfirm">{{ 'register.password_confirm' | translate }}</label>
+            <input class="form-control" type="password" id="inputPasswordConfirm" name="passwordConfirm"
+                   required
+                   ng-attr-placeholder="{{ 'register.password_confirm' | translate }}" ng-model="user.passwordConfirm" />
+          </div>
+
+          <div class="form-group" ng-class="{ 'has-error': registerForm.email.$invalid && registerForm.$dirty }">
+            <label class="control-label" for="inputEmail">{{ 'register.email' | translate }}</label>
+            <input class="form-control" type="email" id="inputEmail" name="email"
+                   required
+                   ng-attr-placeholder="{{ 'register.email' | translate }}" ng-model="user.email" />
+            <span class="help-block" ng-show="registerForm.email.$error.email && registerForm.$dirty">
+              {{ 'validation.email' | translate }}
+            </span>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <button type="submit" class="btn btn-primary" ng-click="register()" ng-disabled="registerForm.$invalid">
+                <span class="fas fa-check"></span> {{ 'register.submit' | translate }}
+              </button>
+            </div>
+
+            <div class="col-md-6 text-right">
+              <div class="well-sm">
+                <a href="#/login">{{ 'register.login' | translate }}</a>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="login-img-container col-sm-6 hidden-xs"></div>
+</div> 

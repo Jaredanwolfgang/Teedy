@@ -2,22 +2,59 @@
   <h1>{{ group.name }}</h1>
 </div>
 
-<h4>{{ 'group.profile.members' | translate }}</h4>
-<ul>
-  <li ng-repeat="member in group.members">
-    <a href="#/user/{{ member }}">{{ member }}</a>
-  </li>
-  <li ng-if="group.members.length == 0">{{ 'group.profile.no_members' | translate }}</li>
-</ul>
-
-<div ng-if="userInfo.base_functions.indexOf('ADMIN') != -1">
-  <h4>{{ 'group.profile.related_links' | translate }}</h4>
-  <ul>
-    <li>
-      <a ng-href="#/settings/group/edit/{{ group.name }}"
-         translate="group.profile.edit_group"
-         translate-values="{ name: group.name }">
-      </a>
-    </li>
-  </ul>
+<div class="row">
+  <div class="col-md-6">
+    <h4>{{ 'group.profile.members' | translate }}</h4>
+    <ul>
+      <li ng-repeat="member in group.members">
+        <a href="#/user/{{ member }}">{{ member }}</a>
+      </li>
+      <li ng-if="group.members.length == 0">{{ 'group.profile.no_members' | translate }}</li>
+    </ul>
+    
+    <div ng-if="userInfo.base_functions.indexOf('ADMIN') != -1">
+      <h4>{{ 'group.profile.related_links' | translate }}</h4>
+      <ul>
+        <li>
+          <a ng-href="#/settings/group/edit/{{ group.name }}"
+             translate="group.profile.edit_group"
+             translate-values="{ name: group.name }">
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+  <!-- Conversation section -->
+  <div class="col-md-6">
+    <div class="well">
+      <h4>{{ 'group.profile.conversation' | translate }}</h4>
+      
+      <div class="messages-container">
+        <ul class="list-unstyled">
+          <li ng-repeat="message in messages" class="message" ng-class="{ 'text-right': message.creator_name == userInfo.username }">
+            <div class="message-bubble" ng-class="{ 'message-mine': message.creator_name == userInfo.username, 'message-other': message.creator_name != userInfo.username }">
+              <div>
+                <strong class="message-creator" ng-if="message.creator_name != userInfo.username">{{ message.creator_name }}: </strong>
+                {{ message.content }}
+              </div>
+              <small class="text-muted">{{ message.create_date | date:'short' }}</small>
+            </div>
+          </li>
+        </ul>
+      </div>
+      
+      <form>
+        <div class="input-group">
+          <input type="text" class="form-control" id="messageContent" name="messageContent" 
+                 ng-model="content" 
+                 ng-model-options="{ updateOn: 'blur change', debounce: {'default': 0} }"
+                 ng-attr-placeholder="{{ 'group.profile.message_placeholder' | translate }}">
+          <span class="input-group-btn">
+            <button class="btn btn-primary" type="submit" ng-click="sendMessage()">{{ 'group.profile.send' | translate }}</button>
+          </span>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>

@@ -37,6 +37,15 @@ angular.module('docs',
         }
       }
     })
+    .state('register', {
+      url: '/register',
+      views: {
+        'page': {
+          templateUrl: 'partial/docs/register.html',
+          controller: 'Register'
+        }
+      }
+    })
     .state('tag', {
       url: '/tag',
       abstract: true,
@@ -178,6 +187,15 @@ angular.module('docs',
         'user': {
           templateUrl: 'partial/docs/settings.user.edit.html',
           controller: 'SettingsUserEdit'
+        }
+      }
+    })
+    .state('settings.user.requests', {
+      url: '/requests',
+      views: {
+        'requests': {
+          templateUrl: 'partial/docs/settings.user.requests.html',
+          controller: 'SettingsUserRequests'
         }
       }
     })

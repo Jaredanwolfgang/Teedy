@@ -14,7 +14,8 @@
     "password_lost_sent_title": "Password reset email sent",
     "password_lost_sent_message": "An email has been sent to <strong>{{ username }}</strong> to reset your password",
     "password_lost_error_title": "Password reset error",
-    "password_lost_error_message": "Unable to send a password reset email, please contact your administrator for a manual reset"
+    "password_lost_error_message": "Unable to send a password reset email, please contact your administrator for a manual reset",
+    "register_request": "Register"
   },
   "passwordlost": {
     "title": "Password lost",
@@ -26,6 +27,25 @@
     "submit": "Change my password",
     "error_title": "Error changing your password",
     "error_message": "Your password recovery request is expired, please ask for a new one on the login page"
+  },
+  "register": {
+    "title": "Registration",
+    "username": "Username",
+    "password": "Password",
+    "password_confirm": "Confirm Password",
+    "email": "Email",
+    "submit": "Register",
+    "login": "Back to login",
+    "password_confirm_error": "Passwords don't match",
+    "success": {
+      "title": "Registration Request Submitted",
+      "message": "Your registration request has been submitted. An administrator will review it and approve or reject it. You will be able to login once your request is approved."
+    },
+    "error": {
+      "username_exists": "This username already exists",
+      "request_exists": "There's already a pending registration request for this username",
+      "server": "A server error occurred"
+    }
   },
   "index": {
     "toggle_navigation": "Toggle navigation",
@@ -243,7 +263,10 @@
       "members": "Members",
       "no_members": "No member",
       "related_links": "Related links",
-      "edit_group": "Edit {{ name }} group"
+      "edit_group": "Edit {{ name }} group",
+      "conversation": "Group Conversation",
+      "message_placeholder": "Type a message...",
+      "send": "Send"
     }
   },
   "user": {
@@ -253,7 +276,10 @@
       "percent_used": "{{ percent | number: 0 }}% Used",
       "related_links": "Related links",
       "document_created": "Documents created by {{ username }}",
-      "edit_user": "Edit {{ username }} user"
+      "edit_user": "Edit {{ username }} user",
+      "conversation": "Conversation",
+      "message_placeholder": "Type a message...",
+      "send": "Send"
     }
   },
   "usergroup": {
@@ -324,7 +350,20 @@
         "disable_totp_btn": "Disable two-factor authentification for this user",
         "disable_totp_title": "Disable two-factor authentication",
         "disable_totp_message": "Are you sure you want to disable two-factor authentication for this user?"
-      }
+      },
+      "users": "Users",
+      "registration_requests": "Registration Requests",
+      "no_registration_requests": "There are no registration requests.",
+      "email": "Email",
+      "status": "Status",
+      "actions": "Actions",
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "processed_by": "Processed by",
+      "on": "on",
+      "approve": "Approve",
+      "reject": "Reject"
     },
     "workflow": {
       "title": "Workflow configuration",
