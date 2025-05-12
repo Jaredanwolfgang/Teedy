@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        PATH = "/opt/homebrew/bin:$PATH"
+        PATH = "/opt/homebrew/bin:/usr/local/bin/:$PATH"
         DOCKER_HUB_CREDENTIALS = credentials('4ac15892-127b-4ccf-8cfb-f95c0c43ef6b')
         DOCKER_IMAGE = 'jaredanjerry/teedy-app'
         DOCKER_TAG = "${env.BUILD_NUMBER}"
