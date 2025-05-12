@@ -1,5 +1,5 @@
 FROM ubuntu:22.04
-LABEL maintainer="b.gamard@sismics.com"
+LABEL maintainer="jaredanjerry@outlook.com"
 
 # Run Debian in non interactive mode
 ENV DEBIAN_FRONTEND noninteractive
@@ -13,6 +13,9 @@ ENV JETTY_VERSION 11.0.20
 ENV JETTY_HOME /opt/jetty
 
 # Install packages
+RUN sed -i 's/ports.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list && \
+    sed -i 's/ports.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list
+
 RUN apt-get update && \
     apt-get -y -q --no-install-recommends install \
     vim less procps unzip wget tzdata openjdk-11-jdk \
