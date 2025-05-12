@@ -42,13 +42,11 @@ pipeline {
             steps {
                 sh '''
                     if ! minikube status | grep -q "Running"; then
-                    echo "Starting Minikube...
-                    "
-                    minikube start
+                        echo "Starting Minikube..."
+                        minikube start
                     else
+                        echo "Minikube already running."
                     fi
-                    echo "Minikube already running.
-                    "
                 '''
             }
         }
