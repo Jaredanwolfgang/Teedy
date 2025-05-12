@@ -16,7 +16,7 @@ pipeline {
                     extensions: [],
                     userRemoteConfigs: [[url: 'https://github.com/Jaredanwolfgang/Teedy.git']]
                 )
-                sh 'mvn -B -DskipTests clean package'
+                sh 'mvn -B clean package -P prod -DskipTests'
             }
         }
         stage('Building image') {
