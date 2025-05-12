@@ -29,18 +29,6 @@ pipeline {
                 }
             }
         }
-        stage('Run containers') {
-            steps {
-                script {
-                    sh 'docker stop teedy-container-8081 || true'
-                    sh 'docker rm teedy-container-8081 || true'
-                    docker.image("${env.DOCKER_IMAGE}:${env.DOCKER_TAG}").run(
-                        '--name teedy-container-8081 -d -p 8081:8080'
-                    )
-                    sh 'docker ps --filter "name=teedy-container"'
-                }
-            }
-        }
         stage('Start Minikube'){
             steps {
                 sh '''
@@ -57,6 +45,7 @@ pipeline {
             steps {
                 sh '''
                     echo "Setting image for deployment..."
+                    minikube image load ${IMAGE_NAME}
                     kubectl set image deployment/${DEPLOYMENT_NAME} ${CONTAINER_NAME}=${IMAGE_NAME}
                 '''
             }
