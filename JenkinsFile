@@ -6,6 +6,8 @@ pipeline {
         DOCKER_HUB_CREDENTIALS = credentials('4ac15892-127b-4ccf-8cfb-f95c0c43ef6b')
         DOCKER_IMAGE = 'jaredanjerry/teedy-app'
         DOCKER_TAG = "${env.BUILD_NUMBER}"
+        CONTAINER_NAME = 'teedy-container-8081'
+        IMAGE_NAME = "${env.DOCKER_IMAGE}:${env.DOCKER_TAG}"
         DEPLOYMENT_NAME = 'hello-node'
     }
     
@@ -57,7 +59,7 @@ pipeline {
                     echo "Setting image for deployment..."
                     kubectl set image deployment/${DEPLOYMENT_NAME} ${CONTAINER_NAME}=${IMAGE_NAME}
                 '''
-                }
+            }
         }
         stage('Verify'){
             steps {
