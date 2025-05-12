@@ -38,5 +38,33 @@ pipeline {
                 }
             }
         }
+        stage('Start Minikube'){
+            steps {
+                sh '''
+                    if ! minikube status | grep -q "Running"; then
+                    echo "Starting Minikube...
+                    "
+                    minikube start
+                    else
+                    fi
+                    echo "Minikube already running.
+                    "
+                '''
+            }
+        }
+        stage('Set Image'){
+            steps {
+                sh '''
+                    echo "Setting image for deployment..."
+                    kubectl set image deployment/${DEPLOYMENT_NAME} ${CONTAINER_NAME}=${IMAGE_NAME}
+                '''
+                }
+        }
+        stage('Verify'){
+            steps {
+                sh 'kubectl rollout status deployment/${DEPLOYMENT_NAME}'
+                sh 'kubectl get pods'
+            }
+        }
     }
 }
