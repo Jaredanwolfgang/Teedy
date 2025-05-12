@@ -3,56 +3,40 @@ pipeline {
 
     environment {
         PATH = "/opt/homebrew/bin:$PATH"
+        DOCKER_HUB_CREDENTIALS = credentials('4ac15892-127b-4ccf-8cfb-f95c0c43ef6b')
+        DOCKER_IMAGE = 'jaredanjerry/teedy-app'
+        DOCKER_TAG = "${env.BUILD_NUMBER}"
     }
     
     stages {
-        stage('Clean') {
+        stage('Build') {
             steps {
-                sh 'mvn clean'
+                checkout scmGit(
+                    branches: [[name: '*/master']],
+                    extensions: [],
+                    userRemoteConfigs: [[url: 'https://github.com/Jaredanwolfgang/Teedy.git']]
+                )
+                sh 'mvn -B -DskipTests clean package'
             }
         }
-        stage('Compile') {
+        stage('Building image') {
             steps {
-                sh 'mvn compile'
+                script {
+                    docker.build("${env.DOCKER_IMAGE}:${env.DOCKER_TAG}")
+                }
             }
         }
-        stage('Test') {
+        stage('Run containers') {
             steps {
-                sh 'mvn test -Dmaven.test.failure.ignore=true'
+                script {
+                    sh 'docker stop teedy-container-8081 || true'
+                    sh 'docker rm teedy-container-8081 || true'
+                    docker.image("${env.DOCKER_IMAGE}:${env.DOCKER_TAG}").run(
+                        '--name teedy-container-8081 -d -p 8081:8080'
+                    )
+                    sh 'docker ps --filter "name=teedy-container"'
+                }
             }
-        }
-        stage('PMD') {
-            steps {
-                sh 'mvn pmd:pmd'
-            }
-        }
-        stage('JaCoCo') {
-            steps {
-                sh 'mvn jacoco:report'
-            }
-        }
-        stage('Javadoc') {
-            steps {
-                sh 'mvn javadoc:javadoc'
-            }
-        }
-        stage('Site') {
-            steps {
-                sh 'mvn site'
-            }
-        }
-        stage('Package') {
-            steps {
-                sh 'mvn package -DskipTests'
-            }
-        }
-    }
-    post {
-        always {
-            archiveArtifacts artifacts: '**/target/site/**/*.*', fingerprint: true
-            archiveArtifacts artifacts: '**/target/**/*.jar', fingerprint: true
-            archiveArtifacts artifacts: '**/target/**/*.war', fingerprint: true
-            junit '**/target/surefire-reports/*.xml'
         }
     }
 }
